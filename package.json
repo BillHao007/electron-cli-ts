@@ -1,0 +1,46 @@
+{
+  "name": "electron-react-template-ts",
+  "version": "1.0.0",
+  "main": "./dist/main.js",
+  "repository": "https://github.com/BillHao007/electron-react-template-ts.git",
+  "author": "BH13 <billhao007@163.com>",
+  "license": "MIT",
+  "dependencies": {
+    "@types/node": "^20.14.9",
+    "classnames": "^2.5.1",
+    "find-process": "^1.4.7",
+    "typescript": "^5.5.3"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2",
+    "cross-env": "^7.0.3",
+    "electron": "^31.1.0",
+    "electron-builder": "^24.13.3",
+    "ts-node": "^10.9.2",
+    "wait-on": "^7.2.0"
+  },
+  "scripts": {
+    "start": "yarn cross-env PORT=8081 NODE_ENV=development yarn start:app",
+    "start:app": "concurrently --kill-others \"yarn start:renderer\" \"wait-on http://localhost:8081 && yarn start:main\" ",
+    "start:main": "yarn tsc && electron .",
+    "start:renderer": "cd renderer && cross-env BROWSER=none yarn start",
+    "build": "yarn cross-env NODE_ENV=production yarn tsc && yarn build:renderer && electron-builder",
+    "build:test": "yarn cross-env NODE_ENV=production yarn build:renderer && yarn start:main",
+    "build:renderer": "cd renderer && yarn build",
+    "rm": "cd renderer && yarn remove",
+    "a": "cd renderer && yarn add",
+    "i": "cd renderer && yarn install"
+  },
+  "build": {
+    "appId": "com.bh13.electronReactTemplateTs",
+    "productName": "electron-react-template-ts",
+    "files": [
+      "renderer/build/**/*",
+      "node_modules/**/*",
+      "dist/**/*"
+    ],
+    "directories": {
+      "output": "build"
+    }
+  }
+}
