@@ -1,6 +1,6 @@
 # electron-react-template-ts
 
-electron react app project template
+electron react app project template with typescript
 
 ## Structure
 
